@@ -5,10 +5,9 @@ import type { ColumnsType } from "antd/es/table";
 
 interface DataType {
 	key: React.Key;
-	name: string;
-	age: number;
-	address: string;
-	email: string;
+	dictValue: string;
+	dictKey: string;
+	sort: number;
 }
 
 const Dict = () => {
@@ -18,24 +17,26 @@ const Dict = () => {
 	const [editRecord, setEditRecord] = useState<DataType>();
 
 	const columns: ColumnsType<DataType> = [
-		{ title: "姓名", dataIndex: "name", key: "name" },
-		{ title: "年龄", dataIndex: "age", key: "age" },
-		{ title: "地址", dataIndex: "address", key: "address" },
-		{ title: "Email", dataIndex: "email", key: "email" },
+		{ title: "字典名称", dataIndex: "dictValue", key: "dictValue" },
+		{ title: "字典编号", dataIndex: "dictKey", key: "dictKey" },
+		{ title: "排序", dataIndex: "sort", key: "sort" },
+		// { title: "Email", dataIndex: "email", key: "email" },
 		{
 			title: "操作",
 			key: "action",
 			render: (text: any, record: DataType) => (
 				<Space size="middle">
-					<a onClick={() => handleEdit(record)}>编辑</a>
+					<a onClick={() => handleEdit(record)}>修改</a>
 					<a onClick={() => handleDelete(record)}>删除</a>
+					<a onClick={() => handleEdit(record)}>查看</a>
+					<a onClick={() => handleEdit(record)}>列表</a>
 				</Space>
 			)
 		}
 	];
 
 	const handleSearch = () => {
-		const data1 = [{ key: 1, name: "11111", age: 100, address: "3000", email: "33333" }];
+		const data1 = [{ key: 1, dictValue: "11111", dictKey: "100", sort: 1 }];
 		setData(data1);
 		// 在这里执行查询操作，然后将结果设置到 data 状态
 	};
@@ -48,10 +49,9 @@ const Dict = () => {
 		setVisible(true);
 		const data: DataType = {
 			key: "",
-			name: "",
-			age: 0,
-			address: "",
-			email: ""
+			dictKey: "",
+			dictValue: "",
+			sort: 0
 		};
 		setEditRecord(data);
 	};
@@ -83,11 +83,11 @@ const Dict = () => {
 	return (
 		<div>
 			<Form form={form} layout="inline" style={{ marginBottom: "20px" }}>
-				<Form.Item name="name" label="姓名">
-					<Input placeholder="请输入姓名" />
+				<Form.Item name="dictValue" label="字典名称">
+					<Input placeholder="请输入字典名称" />
 				</Form.Item>
-				<Form.Item name="age" label="年龄">
-					<Input placeholder="请输入年龄" />
+				<Form.Item name="dictKey" label="字典编号">
+					<Input placeholder="请输入字典编号" />
 				</Form.Item>
 				<Form.Item>
 					<Button type="primary" onClick={handleSearch} style={{ marginRight: "10px" }}>
